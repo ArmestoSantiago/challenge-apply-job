@@ -18,7 +18,7 @@ export function JobsList({ user }: JobsListProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
     setInputValue(value);
-    console.log(inputValue);
+
   };
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>, job: OpenPositionsType) => {
@@ -54,15 +54,16 @@ export function JobsList({ user }: JobsListProps) {
   return (
     <div>
       {openPositions.map(position => {
+        console.log(position.title, position.id);
         return <div className="jobs-list" key={position.id}>
           <span>{position.title}</span>
-          <input onChange={handleChange} placeholder="Enter Your GitHub Repository" />
+          <input onChange={handleChange} placeholder="GitHub Repository" />
           {user ? <button onClick={(e) => handleSubmit(e, position)}>Submit</button> : <p>Log In To Apply</p>}
           {submited && <div className="post-modal">
             {!loading && <button onClick={() => { setSubmited(false); }}>X</button>}
-            {loading && <p><strong>Espere por favor</strong></p>}
+            {loading && <p><strong>Wait Please</strong></p>}
             {error && !loading && <p><strong>Error to apply</strong></p>}
-            {succeed && !loading && <p><strong>You Applied Succefull</strong></p>}
+            {succeed && !loading && <p><strong>You Applied Successfully</strong></p>}
           </div>
           }
         </div>;
