@@ -14,6 +14,7 @@ export const postApplyJob = async (user: UserInformation, repository: string, jo
         "uuid": user.uuid,
         "jobId": jobId,
         "candidateId": user.candidateId,
+        "applicationId": user.applicationId,
         "repoUrl": repository
       })
     }
@@ -25,8 +26,5 @@ export const postApplyJob = async (user: UserInformation, repository: string, jo
 
   const data = await response.json();
 
-  console.log(data);
-
   return data;
-
 };
