@@ -9,7 +9,7 @@ interface JobsListProps {
 
 export function JobsList({ user }: JobsListProps) {
   const [openPositions, setOpenPositions] = useState<OpenPositionsType[]>([]);
-  const [submited, setSubmited] = useState<boolean>(true);
+  const [submited, setSubmited] = useState<boolean>(false);
   const [succeed, setSucceed] = useState<boolean | null>(null);
   const [error, setError] = useState<boolean | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
