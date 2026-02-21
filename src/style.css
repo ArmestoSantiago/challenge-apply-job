@@ -1,5 +1,5 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -11,6 +11,10 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+* {
+  text-align: center;
 }
 
 a {
@@ -18,49 +22,24 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
 
 body {
-  margin: 0;
+  margin: 0 auto;
   display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  align-items: center;
+  justify-content: center;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-}
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #f7df1eaa);
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
 
 button {
@@ -82,6 +61,7 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -92,5 +72,76 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+.post-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  height: 100px;
+  transform: translate(-50%, -50%);
+  background-color: #242424;
+  border: solid .5px white;
+  border-radius: 10px;
+}
+
+.post-modal button {
+  background-color: #242424;
+}
+.jobs-list {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.jobs-list span {
+  width: 200px;
+}
+
+.jobs-list input {
+  height: 20px;
+}
+
+@media (max-width: 610px) {
+  body {
+    font-size: 16px;
+  }
+  .jobs-list {
+    display: flex;
+    gap: 1px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .jobs-list span {
+    width: 150px;
+  }
+
+  .jobs-list input {
+    height: 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  body {
+    font-size: 12px;
+  }
+  .jobs-list {
+    display: flex;
+    gap: 1px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .jobs-list span {
+    width: 80px;
+  }
+
+  .jobs-list input {
+    height: 20px;
+    max-width: 80px;
   }
 }
