@@ -7,7 +7,7 @@ export const getOpenPositions = async () => {
   const response = await fetch(URL);
 
   if (!response.ok) {
-    throw new Error("Fetch to Get Jobs");
+    throw new Error("Error to get open positions");
   }
 
   const data: OpenPositionsType[] = await response.json();
