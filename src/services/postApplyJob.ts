@@ -1,8 +1,10 @@
-import { UserInformation } from "../types/types.d";
+import { SucceedApplication, UserInformation } from "../types/types.d";
 
 export const postApplyJob = async (user: UserInformation, repository: string, jobId: string) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const URL = `${BASE_URL}/api/candidate/apply-to-job`;
+
+  console.log(user, repository, jobId);
 
   const response = await fetch(URL,
     {
@@ -24,7 +26,7 @@ export const postApplyJob = async (user: UserInformation, repository: string, jo
     throw new Error("Error applying to job");
   }
 
-  const data = await response.json();
+  const data: SucceedApplication = await response.json();
 
   return data;
 };
