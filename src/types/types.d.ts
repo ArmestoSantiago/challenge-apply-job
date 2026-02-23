@@ -15,3 +15,7 @@ export interface OpenPositionsType {
   id: string,
   title: string;
 }
+
+export interface SucceedApplication {
+  ok: true;
+}
