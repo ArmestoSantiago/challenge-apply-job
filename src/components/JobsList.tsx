@@ -2,18 +2,18 @@ import { useEffect, useState } from "react";
 import { getOpenPositions } from "../services/getOpenPositions";
 import { OpenPositionsType, UserInformation } from "../types/types.d";
 import { postApplyJob } from "../services/postApplyJob";
+import { useRequestStatus } from "../hooks/useRequestStatus";
+import { RequestInformationModal } from "./RequestInformationModal";
 
 interface JobsListProps {
   user?: UserInformation;
 }
 
 export function JobsList({ user }: JobsListProps) {
+  const [error, setError] = useState<true | null>(null);
   const [openPositions, setOpenPositions] = useState<OpenPositionsType[]>([]);
-  const [submited, setSubmited] = useState<boolean>(false);
-  const [succeed, setSucceed] = useState<boolean | null>(null);
-  const [error, setError] = useState<boolean | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
+  const { status, setStatus, sendRequest } = useRequestStatus();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
@@ -23,18 +23,14 @@ export function JobsList({ user }: JobsListProps) {
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>, job: OpenPositionsType) => {
     if (!user) return;
-    setLoading(true);
-    setSubmited(true);
+    if (!inputValue.includes("github.com/")) {
+      setStatus("github");
+      return;
+    }
     setInputValue("");
     const input = e.currentTarget.previousElementSibling as HTMLInputElement;
     input.value = "";
-    try {
-      const data = await postApplyJob(user, inputValue, job.id);
-      setSucceed(true);
-    } catch (err) {
-      setError(true);
-    }
-    setLoading(false);
+    sendRequest(postApplyJob, user, inputValue, job.id);
   };
 
   useEffect(() => {
@@ -53,19 +49,13 @@ export function JobsList({ user }: JobsListProps) {
 
   return (
     <div>
+      {error && <strong><p>Error loading open positions</p></strong>}
       {openPositions.map(position => {
-        console.log(position.title, position.id);
         return <div className="jobs-list" key={position.id}>
           <span>{position.title}</span>
           <input onChange={handleChange} placeholder="GitHub Repository" />
           {user ? <button onClick={(e) => handleSubmit(e, position)}>Submit</button> : <p>Log In To Apply</p>}
-          {submited && <div className="post-modal">
-            {!loading && <button onClick={() => { setSubmited(false); }}>X</button>}
-            {loading && <p><strong>Wait Please</strong></p>}
-            {error && !loading && <p><strong>Error to apply</strong></p>}
-            {succeed && !loading && <p><strong>You Applied Successfully</strong></p>}
-          </div>
-          }
+          <RequestInformationModal status={status} setStatus={setStatus} />
         </div>;
       })}
     </div >
